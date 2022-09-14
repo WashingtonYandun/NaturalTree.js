@@ -14,6 +14,28 @@ const rules = [
     },
 ];
 
+btn.addEventListener("click", () => {
+    if (currentIteration < MAX_ITERATIONS) {
+        currentIteration++;
+        stringSystem = axiom;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        main(getRandomColor());
+    }
+});
+
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color = color + letters[getRandomInt(0, 15)];
+    }
+    return color;
+};
+
 const drawLine = (x1, y1, x2, y2, color, width) => {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
@@ -44,16 +66,14 @@ const generate = () => {
     console.log(stringSystem);
 };
 
-const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+const draw = (color) => {
     ctx.beginPath();
-    ctx.strokeColor = "white";
     ctx.translate(canvas.width / 2, canvas.height);
     ctx.moveTo(0, 0);
     for (let i = 0; i < stringSystem.length; i++) {
         let current = stringSystem[i];
         if (current === "F") {
-            drawLine(0, 0, 0, -5, "#ffffff", 1);
+            drawLine(0, 0, 0, -5, color, 1);
             ctx.translate(0, -5);
         } else if (current === "+") {
             ctx.rotate((Math.PI * 25) / 180);
@@ -66,15 +86,15 @@ const draw = () => {
         }
     }
     ctx.stroke();
+    ctx.closePath();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
 };
 
-const main = () => {
-    for (let i = 0; i < MAX_ITERATIONS; i++) {
+const main = (color) => {
+    for (let i = 0; i < currentIteration; i++) {
         generate();
     }
+    container.style.color = color;
     container.textContent = stringSystem;
-    draw();
+    draw(color);
 };
-
-main();
-// button need to be functional

@@ -8,9 +8,10 @@
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-color: #222;
+    background-color: #000000;
     color: #ffffff;
-    text-align: justify;
+    text-align: center;
+    text-align-last: center;
 }
 #btn {
     position: absolute;
