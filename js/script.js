@@ -1,8 +1,10 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const container = document.getElementById("container");
+const btn = document.getElementById("btn");
 
-let maxIterations = 4;
+const MAX_ITERATIONS = 4;
+let currentIteration = 0;
 let axiom = "F";
 let stringSystem = axiom;
 const rules = [
@@ -51,7 +53,7 @@ const draw = () => {
     for (let i = 0; i < stringSystem.length; i++) {
         let current = stringSystem[i];
         if (current === "F") {
-            drawLine(0, 0, 0, -5, "#ffffff", 0.1);
+            drawLine(0, 0, 0, -5, "#ffffff", 1);
             ctx.translate(0, -5);
         } else if (current === "+") {
             ctx.rotate((Math.PI * 25) / 180);
@@ -67,11 +69,12 @@ const draw = () => {
 };
 
 const main = () => {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < MAX_ITERATIONS; i++) {
         generate();
     }
-    //container.textContent = stringSystem;
+    container.textContent = stringSystem;
     draw();
 };
 
 main();
+// button need to be functional
