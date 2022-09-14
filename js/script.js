@@ -15,11 +15,16 @@ const rules = [
 ];
 
 btn.addEventListener("click", () => {
-    if (currentIteration < MAX_ITERATIONS) {
-        currentIteration++;
+    currentIteration++;
+    if (currentIteration <= MAX_ITERATIONS) {
         stringSystem = axiom;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         main(getRandomColor());
+    } else {
+        currentIteration = 0;
+        stringSystem = axiom;
+        container.textContent = stringSystem;
+        draw();
     }
 });
 
