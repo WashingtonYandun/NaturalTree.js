@@ -1,9 +1,11 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const container = document.getElementById("container");
 
+let maxIterations = 4;
 let axiom = "F";
 let stringSystem = axiom;
-let rules = [
+const rules = [
     {
         a: "F",
         b: "FF+[+F-F-F]-[-F+F+F]",
@@ -49,8 +51,8 @@ const draw = () => {
     for (let i = 0; i < stringSystem.length; i++) {
         let current = stringSystem[i];
         if (current === "F") {
-            drawLine(0, 0, 0, -10, "white", 1);
-            ctx.translate(0, -10);
+            drawLine(0, 0, 0, -5, "#ffffff", 0.1);
+            ctx.translate(0, -5);
         } else if (current === "+") {
             ctx.rotate((Math.PI * 25) / 180);
         } else if (current === "-") {
@@ -65,7 +67,10 @@ const draw = () => {
 };
 
 const main = () => {
-    generate();
+    for (let i = 0; i < 4; i++) {
+        generate();
+    }
+    //container.textContent = stringSystem;
     draw();
 };
 
